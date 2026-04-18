@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tokopedia by GGHS</title>
+  <style>
+    body{margin:0;font-family:Arial;background:#f5f5f5}
+    header{background:#03AC0E;color:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center}
+    nav{background:#fff;padding:10px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+    nav span{font-weight:bold}
+    .container{padding:20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:15px}
+    .card{background:#fff;padding:10px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center}
+    .card img{width:100%;height:140px;object-fit:cover}
+    button{background:#03AC0E;color:#fff;border:none;padding:8px 12px;border-radius:4px;cursor:pointer}
+    button:hover{opacity:.9}
+    #cartBox{background:#fff;padding:15px;border-radius:8px;margin-top:20px}
+   #cartBox input,
+#cartBox select{
+  height:35px;
+  font-size:14px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+}
+    .cart-item{display:flex;justify-content:space-between;margin-bottom:8px}
+  
+  .flashTimerBox{
+background:#ff3c3c;
+color:#fff;
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
+text-align:center;
+}
+  </style>
+</head>
+<body><header>
+  <h2>tokopedia🛍️</h2>
+  <div>🛍️Keranjang: <span id="cartCount">0</span></div>
+</header><nav>
+  <span>Beranda</span>
+</nav><div class="container">
+  <h3>Produk</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="headset.jpeg">
+      <p>Headset JETE</p>
+      <p>Rp80.000</p>
+      <button onclick="addToCart('Headset JETE',80000)">Tambah keranjang</button>
+    </div>
+    <div class="card">
+      <img src="sepatu.jpeg">
+      <p>Sepatu</p>
+      <p>Rp350.000</p>
+      <button onclick="addToCart('Sepatu',350000)">Tambah keranjang</button>
+    </div>
+    <div class="card">
+      <img src="jam.jpeg">
+      <p>Jam</p>
+      <p>Rp450.000</p>
+      <button onclick="addToCart('Jam',450000)">Tambah keranjang</button>
+    </div>
+     <div class="card">
+      <img src="sapu.jpg">
+      <p>Sapu terbang</p>
+      <p>Rp100.000.000.000</p>
+      <button onclick="addToCart('sapu terbang',100000000000)">Tambah keranjang</button>
+    </div>
+     <div class="card">
+      <img src="J2 PRIME.jpg">
+      <p>samsung J2 PRIME 4G LIKE NEW</p>
+      <p>Rp600.000</p>
+      <button onclick="addToCart('samsung J2 PRIME 4G LIKE NEW',600000)">Tambah keranjang</button>
+    </div>
+     <div class="card">
+      <img src="samsung chat.jpeg">
+      <p>samsung galaxy chat 3g second</p>
+      <p>Rp100.000</p>
+      <button onclick="addToCart('samsung galaxy chat 3g second',100000)">Tambah keranjang</button>
+    </div>
+     <div class="card">
+      <img src="a07.jpeg">
+      <p>samsung galaxy A07 6/128</p>
+      <p>Rp2.798.000</p>
+      <button onclick="addToCart('samsung galaxy A07 6/128',2798000)">Tambah keranjang</button>
+    </div>
+  </div>  <h3>🔥 Flash Sale Hari Ini</h3>
+  <div class="flashTimerBox">
+Flash berakhir dalam:
+<div id="flashTimer" style="font-size:18px;font-weight:bold;">15:00</div>
+</div>
+  <div id="viewerFlash" style="color:red;font-size:13px;margin-top:5px;"></div>
+
+<div class="grid" id="flashSale"></div>
+  <div class="grid" id="flashSale"></div><button style="margin:10px 0;background:#25d366" onclick="chatSeller()">💬 Chat Penjual</button>
+
+
+  <div id="cartBox">
+  <h3>Keranjang</h3>
+  <div id="cartItems"></div>
+  <p><b>Total: Rp<span id="total">0</span></b></p>
+
+  <h3>Detail Pengiriman</h3>
+
+  <input id="nama" placeholder="Nama Penerima"
+  style="width:100%;padding:6px;margin:5px 0">
+
+  <input id="alamat" placeholder="Alamat Lengkap"
+  style="width:100%;padding:6px;margin:5px 0">
+
+  <input id="nomor" placeholder="Nomor HP"
+  style="width:100%;padding:6px;margin:5px 0">
+
+  <select id="kurir"
+  style="width:100%;padding:6px;margin:5px 0">
+    <option value="">Pilih Jasa Kirim</option>
+    <option>🚀 GGHS Express (1-3 Hari)</option>
+    <option>🐢 si Lambat Express (2-5 Hari)</option>
+    <option>🐢 si Lambat hemat (3-6 Hari)</option>
+    <option>🛻 JNE Cargo bgt (2-3 hari)</option>
+    <option>🛻 JNE Express (2-4 hari)</option>
+    <option>🛻 JNE hemat (3-4 hari)</option>
+    <option>🚛 J&T Express (2-4 hari)</option>
+    <option>🚛 J&T hemat (3-4 hari)</option>
+    <option>🚛 J&T cargo (2-4 hari)</option>
+    <option>🚛 anteraja (2-4 hari)</option>
+    <option>🚛 anteraja hemat (3-4 hari)</option>
+    <option>🚛 Lion Parcel Logistics (2-4 hari)</option>
+  </select>
+<h3>Metode Pembayaran</h3>
+
+<select id="payment"
+style="width:100%;padding:6px;margin:5px 0">
+  <option value="">Pilih Metode Pembayaran</option>
+  <option value="transfer bank BCA">🏦 Transfer Bank BCA</option>
+  <option value="transfer bank mandiri">🏦 Transfer Bank Mandiri</option>
+  <option value="indomaret">🏪 Bayar di indomaret</option>
+  <option value="alfamart">🏪 Bayar di alfamart</option>
+  <option value="QRIS">🏦 Bayar pake QRIS</option>
+  <option value="cod">💵 COD (Bayar di Tempat)</option>
+</select>
+  <button onclick="checkout()">Checkout</button>
+</div>
+</div><script>
+  let cart = [];
+  let total = 0;
+
+  function addToCart(name, price){
+    cart.push({name,price});
+    total += price;
+    document.getElementById('cartCount').innerText = cart.length;
+    renderCart();
+  }
+
+  function renderCart(){
+    const box = document.getElementById('cartItems');
+    box.innerHTML = '';
+    cart.forEach((item,i)=>{
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `${item.name} - Rp${item.price.toLocaleString()} <button onclick="removeItem(${i})">X</button>`;
+      box.appendChild(div);
+    });
+    document.getElementById('total').innerText = total.toLocaleString();
+  }
+
+  function removeItem(i){
+    total -= cart[i].price;
+    cart.splice(i,1);
+    document.getElementById('cartCount').innerText = cart.length;
+    renderCart();
+  }
+
+  function checkout(){
+  if(cart.length===0){
+    alert('Keranjang kosong!');
+    return;
+  }
+
+  const nama = document.getElementById('nama').value;
+  const alamat = document.getElementById('alamat').value;
+  const nomor = document.getElementById('nomor').value;
+  const kurir = document.getElementById('kurir').value;
+  const payment = document.getElementById('payment').value;
+
+let paymentInfo = '';
+
+if(payment === 'transfer bank BCA'){
+
+  const banks = [
+    "Bank BCA Digital no.0861",
+    "Bank BCA Online no.4894",
+    "Bank BCA Virtual no.0536"
+  ];
+
+  const randomBank = banks[Math.floor(Math.random() * banks.length)];
+
+  function generateRek(){
+    let rek = "";
+    for(let i=0;i<3;i++){
+      rek += Math.floor(1000 + Math.random() * 9000);
+      if(i<2) rek += "-";
+    }
+    return rek;
+  }
+
+  const randomRek = generateRek();
+
+  paymentInfo =
+    "Silakan transfer ke:\n" +
+    randomBank +
+    "\nNo Rek: " + randomRek;
+}
+else if(payment === 'transfer bank mandiri'){
+
+  const banks = [
+    "Bank mandiri Digital no.5741",
+    "Bank mandiri Online no.3564",
+    "Bank mandiri Virtual no.9559"
+  ];
+
+  const randomBank = banks[Math.floor(Math.random() * banks.length)];
+
+  function generateRek(){
+    let rek = "";
+    for(let i=0;i<3;i++){
+      rek += Math.floor(1000 + Math.random() * 9000);
+      if(i<2) rek += "-";
+    }
+    return rek;
+  }
+
+  const randomRek = generateRek();
+
+  paymentInfo =
+    "Silakan transfer ke:\n" +
+    randomBank +
+    "\nNo Rek: " + randomRek;
+}
+else if(payment === 'indomaret'){
+  
+  function generateKode() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let kode = "";
+    
+    for(let i = 0; i < 4; i++){
+      for(let j = 0; j < 4; j++){
+        kode += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      if(i < 3) kode += "-";
+    }
+    
+    return kode;
+  }
+
+  const kode = generateKode();
+  paymentInfo = "Kode Pembayaran indomaret:\n" + kode;
+}
+else if(payment === 'alfamart'){
+
+  function generateKodeAngka(){
+    let kode = "";
+    
+    for(let i = 0; i < 4; i++){ // 4 blok
+      for(let j = 0; j < 4; j++){ // 4 angka tiap blok
+        kode += Math.floor(Math.random() * 10);
+      }
+      if(i < 3) kode += "-";
+    }
+
+    return kode;
+  }
+
+  const kode = generateKodeAngka();
+
+  paymentInfo = "Pembayaran alfamart:\n" + kode;
+}else if(payment === 'QRIS'){
+
+function generateKodeAngka(){
+  let kode = "";
+
+  for(let i = 0; i < 3; i++){
+    // 3 angka tiap blok
+    for(let j = 0; j < 3; j++){
+      kode += Math.floor(Math.random() * 10);
+    }
+
+    if(i < 2){
+      kode += "-";
+    }
+  }
+
+  return kode;
+}
+
+  const kode = generateKodeAngka();
+
+  paymentInfo = "Pembayaran lewat QRIS                              (kode pembayaran QRIS anda):\n" + kode;
+}
+else if(payment === 'cod'){
+  paymentInfo = "Bayar langsung ke kurir saat barang sampai.";
+}
+    
+  if(!nama || !alamat || !nomor || !kurir || !payment){
+  alert('Lengkapi dulu data pengiriman & pembayaran 😁');
+  return;
+}
+
+alert(
+  "✅ Checkout Berhasil \n\n"+
+  "Nama: "+nama+
+  "\nAlamat: "+alamat+
+  "\nNomor: "+nomor+
+  "\nKurir: "+kurir+
+  "\nMetode: "+payment+
+  "\n\n"+paymentInfo+
+  "\n\nTotal: Rp"+total.toLocaleString()
+);
+
+  cart=[];
+  total=0;
+  document.getElementById('cartCount').innerText=0;
+  renderCart();
+
+  document.getElementById('nama').value='';
+  document.getElementById('alamat').value='';
+  document.getElementById('nomor').value='';
+  document.getElementById('kurir').value='';
+  
+}
+// ===== FLASH SALE (AMAN, TIDAK UBAH SCRIPT LAMA) =====
+  const products = [
+    {name:'Powerbank prolink support 18W',price:200000},
+    {name:'Mouse Fantech VENOM II WGC2',price:180000},
+    {name:'iphone 16 pro max 512GB',price:24000000},
+    {name:'Keyboard logitech',price:350000},
+    {name:'Earbuds samsung',price:400000},
+    {name:'Charger log-on 45W',price:120000},
+    {name:'iphone 12 pro max 512GB',price:8167000},
+    {name:'infinix hot50 5G 256GB',price:1558000},
+    {name:'infinix note50 5G+ 256GB',price:3468000},
+    {name:'Speaker jbl',price:500000},
+    {name:'samsung galaxy A07 6/128',price:2798000}
+  ];
+
+  function randomDiscount(){
+    const chance = Math.random();
+    if(chance <= 0.4){ // 40% chance dapat >=50%
+      return [50,55,59,60,64,65,66,67,70,71,74,76,77,79,80,81,82,85,87,88,90,99][Math.floor(Math.random()*22)];
+    }else{
+      return [3,4,5,6,9,10,11,14,16,17,18,20,22,27,28,30,34,37,40,41,46,47,45,47,49][Math.floor(Math.random()*25)];
+    }
+  }
+
+  function loadFlashSale(){
+    const box = document.getElementById('flashSale');
+    box.innerHTML = '';
+    const shuffled = products.sort(()=>0.5-Math.random()).slice(0,4);
+
+    shuffled.forEach(p=>{
+      const disc = randomDiscount();
+      const final = Math.floor(p.price*(100-disc)/100);
+      const div = document.createElement('div');
+      div.className='card';
+      div.innerHTML = `
+        <p><b>${p.name}</b></p>
+        <p><s>Rp${p.price.toLocaleString()}</s></p>
+        <p style="color:red">-${disc}% → Rp${final.toLocaleString()}</p>
+        <button onclick="addToCart('${p.name}',${final})">tambah keranjang</button>
+      `;
+      box.appendChild(div);
+    });
+  }
+
+  loadFlashSale();
+
+/* ===========================
+   TIMER 15 MENIT
+=========================== */
+
+let flashEndTime=Date.now()+(15*60*1000);
+
+function updateFlashTimer(){
+const now=Date.now();
+const diff=flashEndTime-now;
+
+if(diff<=0){
+flashEndTime=Date.now()+(15*60*1000);
+loadFlashSale(); // refresh produk
+return;
+}
+
+const minutes=Math.floor(diff/60000);
+const seconds=Math.floor((diff%60000)/1000);
+
+document.getElementById('flashTimer').innerText=
+String(minutes).padStart(2,'0')+":"+
+String(seconds).padStart(2,'0');
+}
+
+setInterval(updateFlashTimer,1000);
+  
+  // ===== VIEWER RANDOM =====
+function updateViewer(){
+  const cities = ["Medan","Jakarta","Bandung","Surabaya","Makassar","palembang","jawa","bali","aceh","bengkulu"];
+  const viewers = Math.floor(Math.random()*20000)+10;
+  const city = cities[Math.floor(Math.random()*cities.length)];
+
+  document.getElementById("viewerFlash").innerText =
+    viewers + " orang dari " + city + " sedang melihat 🔥";
+}
+
+setInterval(updateViewer,3000);
+updateViewer();
+
+// ===== CHAT PENJUAL (AI SINGKAT, AMAN) =====
+function chatSeller(){
+  const q = prompt('Tanya penjual:');
+  if(!q) return;
+
+  const text = q.toLowerCase();
+  let reply = 'ada yg bisa di bantu';
+
+  if(
+    text.includes('apakah stok ada') ||
+    text.includes('stok masih ada') ||
+    text.includes('stok')
+  ){
+    reply = 'masih kak silahkan di beli';
+  }
+  else if(
+    text.includes('ditunggu pengiriman') ||
+    text.includes('ditunggu kak') ||
+    text.includes('ditunggu')
+  ){
+    reply = 'oke terimakasih telah beli kak';
+  }
+  else if(
+    text.includes('paket akan dikirim') ||
+    text.includes('paket dikirim kapan') ||
+    text.includes('paket dikirim')
+  ){
+    reply = 'besok kak';
+  }
+  else if(
+    text.includes('tidak ada respon')
+  ){
+    reply = 'kenapa kak ada yg bisa di bantu';
+  }
+  else if(text.trim() === 'p'){
+    reply = 'ada yg bisa di bantu';
+  }
+
+  alert('Penjual: ' + reply);
+}
+  </script>
+</body>
+</html>
